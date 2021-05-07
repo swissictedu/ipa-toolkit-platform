@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  ipa-toolkit-backend:
+    image: ghcr.io/ictorg/ipa-toolkit-backend:latest
+    depends_on:
+      - ipa-toolkit-backend-postgres
+    environment:
+      API_ORIGIN: localhost:3001
+      LANG: C.UTF-8
+      RAILS_ENV: production
+      DATABASE_URL: "postgresql://postgres:secret@ipa-toolkit-backend-postgres/ipa-toolkit_production"
+
+  ipa-toolkit-backend-postgres:
+    image: postgres:13.2-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: "secret"
+
+  ipa-toolkit-frontend:
+    image: ghcr.io/ictorg/ipa-toolkit-frontend:latest
+    environment:
+      API: localhost:3000
+
+volumes:
+  database:
