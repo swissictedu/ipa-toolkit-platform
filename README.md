@@ -27,4 +27,9 @@ These steps describe how to set up the system environment on Ubuntu 20.04:
 1. Change contact email for SSL certificates in `traefik.yml`
 1. Configure the following environment variables:
    - `SECRET_KEY_BASE`: Generate with `rails secret`
+   - `API`: Escape uri so it works with seed (e.g. `"https:\\/\\/api.example.com\\/graphql"`)
 1. Run application system <br> `docker-compose up`
+
+### Upgrade application system
+1. Pull new images <br> `docker-compose pull`
+1. Recreate containers <br> `docker-compose up -d`
