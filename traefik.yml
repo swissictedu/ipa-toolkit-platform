@@ -19,7 +19,7 @@ providers:
 certificatesResolvers:
   defaultResolver:
     acme:
-      email: "hi@openscript.ch"
+      email: "example@example.com"
       storage: "/letsencrypt/acme.json"
       httpChallenge:
         entryPoint: "http"
