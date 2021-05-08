@@ -3,6 +3,13 @@ version: '3'
 services:
   ipa-toolkit-proxy:
     image: traefik:2.4
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik.yml:/traefik.yml
+      - letsencrypt:/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
     labels:
       - "traefik.enable=true"
       - "traefik.constraint-label=proxy"
@@ -28,6 +35,7 @@ services:
       LANG: C.UTF-8
       RAILS_ENV: production
       DATABASE_URL: "postgresql://postgres:secret@ipa-toolkit-backend-postgres/ipa-toolkit_production"
+      SECRET_KEY_BASE: "REPLACE!"
     labels: 
       - "traefik.enable=true"
       - "traefik.http.middlewares.backend-redirect-https.redirectscheme.scheme=https"

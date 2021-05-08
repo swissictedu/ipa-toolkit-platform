@@ -19,8 +19,11 @@ These steps describe how to set up the system environment on Ubuntu 20.04:
 1. Validate the installation of Docker Compose (>= 1.29.1) <br> `docker-compose -v`
 
 ### Application system
+1. Install git <br> `apt install git`
+1. Clone this repository <br> `git clone https://github.com/ictorg/ipa-toolkit-platform`
 1. Copy the `docker-compose.yml`.
 1. Make sure that the DNS is routing all subdomains to the host where the individual services run on.
-1. Replace all `example.com` with the domain where the application runs on.
+1. Replace all `example.com` with the domain where the application runs on. <br> `sed -i "s/example.com/example.ch/g" docker-compose.yml`
 1. Configure the following environment variables:
    - `SECRET_KEY_BASE`: Generate with `rails secret`
+1. Run application system <br> `docker-compose up`
