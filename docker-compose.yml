@@ -1,15 +1,44 @@
 version: '3'
 
 services:
+  ipa-toolkit-proxy:
+    image: traefik:2.4
+    labels:
+      - "traefik.enable=true"
+      - "traefik.constraint-label=proxy"
+      - "traefik.http.middlewares.auth.basicauth.users=harold.finch:$$2y$$05$$eSfwvKJnawY0Ac2Rdsm2A.iQwvEEL0VcOp.y0aOh0BqTmGacAgmm2"
+      - "traefik.http.middlewares.dashboard-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.dashboard-https-redirect.redirectscheme.permanent=true"
+      - "traefik.http.routers.dashboard-https.rule=Host(`proxy.toolkit.example.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))"
+      - "traefik.http.routers.dashboard-https.entrypoints=https"
+      - "traefik.http.routers.dashboard-https.tls.certresolver=defaultResolver"
+      - "traefik.http.routers.dashboard-https.service=api@internal"
+      - "traefik.http.routers.dashboard-https.middlewares=auth"
+      - "traefik.http.routers.dashboard-http.rule=Host(`proxy.toolkit.example.com`)"
+      - "traefik.http.routers.dashboard-http.entrypoints=http"
+      - "traefik.http.routers.dashboard-http.middlewares=https_redirect"
+      - "traefik.http.services.dashboard.loadbalancer.server.port=80"
+
   ipa-toolkit-backend:
     image: ghcr.io/ictorg/ipa-toolkit-backend:latest
     depends_on:
       - ipa-toolkit-backend-postgres
     environment:
-      API_ORIGIN: localhost:3001
+      API_ORIGIN: toolkit.example.com
       LANG: C.UTF-8
       RAILS_ENV: production
       DATABASE_URL: "postgresql://postgres:secret@ipa-toolkit-backend-postgres/ipa-toolkit_production"
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.backend-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.backend-http.middlewares=backend-redirect-https"
+      - "traefik.http.routers.backend-http.rule=Host(`api.toolkit.example.com`)"
+      - "traefik.http.routers.backend-http.entrypoints=http"
+      - "traefik.http.routers.backend-https.rule=Host(`api.toolkit.example.com`)"
+      - "traefik.http.routers.backend-https.entrypoints=https"
+      - "traefik.http.routers.backend-https.tls.certresolver=defaultResolver"
+      - "traefik.http.routers.backend-https-service=backend-http-service"
+      - "traefik.http.services.backend-http-service.loadbalancer.server.port=80"
 
   ipa-toolkit-backend-postgres:
     image: postgres:13.2-alpine
@@ -21,7 +50,18 @@ services:
   ipa-toolkit-frontend:
     image: ghcr.io/ictorg/ipa-toolkit-frontend:latest
     environment:
-      API: localhost:3000
+      API: api.toolkit.example.com
+    labels: 
+      - "traefik.enable=true"
+      - "traefik.http.middlewares.frontend-redirect-https.redirectscheme.scheme=https"
+      - "traefik.http.routers.frontend-http.middlewares=frontend-redirect-https"
+      - "traefik.http.routers.frontend-http.rule=Host(`toolkit.example.com`)"
+      - "traefik.http.routers.frontend-http.entrypoints=http"
+      - "traefik.http.routers.frontend-https.rule=Host(`toolkit.example.com`)"
+      - "traefik.http.routers.frontend-https.entrypoints=https"
+      - "traefik.http.routers.frontend-https.tls.certresolver=defaultResolver"
+      - "traefik.http.routers.frontend-https-service=frontend-http-service"
+      - "traefik.http.services.frontend-http-service.loadbalancer.server.port=80"
 
 volumes:
   database:
