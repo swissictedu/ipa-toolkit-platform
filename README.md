@@ -6,7 +6,7 @@ The IPA Toolkit implements helpful tools to master the mighty IPA process. This 
 The following steps describe how to set up the IPA toolkit.
 
 ### Environment
-These steps describe how to set up the system environment on Ubuntu 20.04:
+These steps describe how to set up the system environment on Ubuntu 20.04 LTS:
 
 1. Install updates <br> `apt update && apt upgrade`
 1. Install Docker dependencies <br> `apt install apt-transport-https ca-certificates curl gnupg lsb-release`
@@ -28,8 +28,12 @@ These steps describe how to set up the system environment on Ubuntu 20.04:
 1. Configure the following environment variables:
    - `SECRET_KEY_BASE`: Generate with `rails secret`
    - `API`: Escape uri so it works with seed (e.g. `"https:\\/\\/api.example.com\\/graphql"`)
-1. Run application system <br> `docker-compose up`
+1. Run application system <br> `docker-compose up -d`
+1. Initialize database
+   1. Create database <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:create`
+   1. Load database schema <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:schema:load`
 
 ### Upgrade application system
 1. Pull new images <br> `docker-compose pull`
 1. Recreate containers <br> `docker-compose up -d`
+1. Migrate database <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:migrate`
