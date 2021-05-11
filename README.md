@@ -26,8 +26,14 @@ These steps describe how to set up the system environment on Ubuntu 20.04 LTS:
 1. Replace all `example.com` with the domain where the application runs on. <br> `sed -i "s/example.com/example.ch/g" docker-compose.yml`
 1. Change contact email for SSL certificates in `traefik.yml`
 1. Configure the following environment variables:
-   - `SECRET_KEY_BASE`: Generate with `rails secret`
-   - `API`: Escape uri so it works with seed (e.g. `"https:\\/\\/api.example.com\\/graphql"`)
+   - **ipa-toolkit-backend**
+     - `SECRET_KEY_BASE`: Generate with `rails secret`
+     - `SYSTEM_EMAIL_SERVER`: IMAP server
+     - `SYSTEM_EMAIL_DOMAIN`: Domain
+     - `SYSTEM_EMAIL_ADDRESS`: E-mail account address (username)
+     - `SYSTEM_EMAIL_PASSWORD`: E-mail account password
+   - **ipa-toolkit-frontend**
+     - `API`: Escape uri so it works with seed (e.g. `"https:\\/\\/api.example.com\\/graphql"`)
 1. Run application system <br> `docker-compose up -d`
 1. Initialize database
    1. Create database <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:create`

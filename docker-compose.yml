@@ -35,7 +35,11 @@ services:
       LANG: C.UTF-8
       RAILS_ENV: production
       DATABASE_URL: "postgresql://postgres:secret@ipa-toolkit-backend-postgres/ipa-toolkit_production"
-      SECRET_KEY_BASE: "REPLACE!"
+      SECRET_KEY_BASE: "!REPLACE_ME!"
+      SYSTEM_EMAIL_SERVER: "!REPLACE_ME!"
+      SYSTEM_EMAIL_DOMAIN: "!REPLACE_ME!"
+      SYSTEM_EMAIL_ADDRESS: "!REPLACE_ME!"
+      SYSTEM_EMAIL_PASSWORD: "!REPLACE_ME!"
     labels: 
       - "traefik.enable=true"
       - "traefik.http.middlewares.backend-redirect-https.redirectscheme.scheme=https"
