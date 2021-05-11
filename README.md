@@ -28,7 +28,7 @@ These steps describe how to set up the system environment on Ubuntu 20.04 LTS:
 1. Configure the following environment variables:
    - **ipa-toolkit-backend**
      - `SECRET_KEY_BASE`: Generate with `rails secret`
-     - `SYSTEM_EMAIL_SERVER`: IMAP server
+     - `SYSTEM_EMAIL_SERVER`: SMTP server
      - `SYSTEM_EMAIL_DOMAIN`: Domain
      - `SYSTEM_EMAIL_ADDRESS`: E-mail account address (username)
      - `SYSTEM_EMAIL_PASSWORD`: E-mail account password
