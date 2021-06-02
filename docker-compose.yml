@@ -32,6 +32,7 @@ services:
       - ipa-toolkit-backend-postgres
     environment:
       API_ORIGIN: toolkit.example.com
+      DEFAULT_HOST: api.toolkit.example.com
       LANG: C.UTF-8
       RAILS_ENV: production
       DATABASE_URL: "postgresql://postgres:secret@ipa-toolkit-backend-postgres/ipa-toolkit_production"
