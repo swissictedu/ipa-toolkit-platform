@@ -28,6 +28,8 @@ services:
 
   ipa-toolkit-backend:
     image: ghcr.io/ictorg/ipa-toolkit-backend:latest
+    volumes:
+      - storage:/app/storage
     depends_on:
       - ipa-toolkit-backend-postgres
     environment:
@@ -77,5 +79,6 @@ services:
       - "traefik.http.services.frontend-http-service.loadbalancer.server.port=80"
 
 volumes:
+  storage:
   database:
   letsencrypt:
