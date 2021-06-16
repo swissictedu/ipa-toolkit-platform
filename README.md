@@ -41,6 +41,9 @@ These steps describe how to set up the system environment on Ubuntu 20.04 LTS:
    1. Load database schema <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:schema:load`
    1. Create administrator account <br> `docker exec -it $(docker ps -f name=backend_ -q) rails db:seed`
 
+### Release a new version
+1. Create a new release via Github, so the CI/CD pipeline is triggered.
+
 ### Upgrade application system
 1. Pull new images <br> `docker-compose pull`
 1. Recreate containers <br> `docker-compose up -d`
