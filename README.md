@@ -154,7 +154,7 @@ The following sources were used:
 
 ### Release a new version
 
-1. Create a new release via Github, so the CI/CD pipeline is triggered.
+1. Merge the release pull request and wait for completion of the pipeline.
 
 ### Upgrade application system
 
@@ -175,3 +175,17 @@ The following sources were used:
    ```bash
    docker exec -it $(docker ps -f name=backend..$ -q) rails db:migrate
    ```
+
+### Maintain application system
+
+- Create a database backup
+
+  ```bash
+  docker exec -it $(docker ps -f name=backend-postgres..$ -q) pg_dumpall -c -U postgres > toolkit_dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+  ```
+
+- Archive storage
+
+  ```bash
+  tar -czvf toolkit_storage_`date +%d-%m-%Y"_"%H_%M_%S`.tar.gz /var/lib/docker/volumes/ipa-toolkit-platform_storage/_data/
+  ```
