@@ -130,7 +130,7 @@ The following sources were used:
 1. Run application system
 
    ```bash
-   docker-compose up -d
+   docker compose -f docker-compose.prod.yml up -d
    ```
 
 1. Initialize database
@@ -161,13 +161,13 @@ The following sources were used:
 1. Pull new images
 
    ```bash
-   docker-compose pull
+   docker compose -f docker-compose.prod.yml pull
    ```
 
 1. Recreate containers
 
    ```bash
-   docker-compose up -d
+   docker compose -f docker-compose.prod.yml up -d
    ```
 
 1. Migrate database
