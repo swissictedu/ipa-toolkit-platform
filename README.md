@@ -117,7 +117,7 @@ The following sources were used:
    ```
 
 1. Change contact email for SSL certificates in `traefik.yml`
-1. Configure the following environment variables:
+1. Configure the following environment variables in `docker-compose.prod.yml`:
    - **ipa-toolkit-backend**
      - `DEFAULT_HOST`: The backends hostname
      - `SECRET_KEY_BASE`: Generate with `rails secret`
