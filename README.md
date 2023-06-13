@@ -120,7 +120,7 @@ The following sources were used:
 1. Configure the following environment variables in `docker-compose.prod.yml`:
    - **ipa-toolkit-backend**
      - `DEFAULT_HOST`: The backends hostname
-     - `SECRET_KEY_BASE`: Generate with `rails secret`
+     - `SECRET_KEY_BASE`: Generate with `rails secret` or `openssl rand -hex 64`
      - `SYSTEM_EMAIL_SERVER`: SMTP server
      - `SYSTEM_EMAIL_DOMAIN`: Domain
      - `SYSTEM_EMAIL_ADDRESS`: E-mail account address (username)
