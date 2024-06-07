@@ -137,19 +137,19 @@ The following sources were used:
    1. Create database
 
       ```bash
-      docker exec -it $(docker ps -f name=backend..$ -q) rails db:create
+      docker exec -it $(docker ps -f name=ipa-toolkit-backend -q) rails db:create
       ```
 
    1. Load database schema
 
       ```bash
-      docker exec -it $(docker ps -f name=backend..$ -q) rails db:schema:load
+      docker exec -it $(docker ps -f name=ipa-toolkit-backend -q) rails db:schema:load
       ```
 
    1. Create administrator account
 
       ```bash
-      docker exec -it $(docker ps -f name=backend..$ -q) rails db:seed
+      docker exec -it $(docker ps -f name=ipa-toolkit-backend -q) rails db:seed
       ```
 
 ### Release a new version
