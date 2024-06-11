@@ -173,7 +173,7 @@ The following sources were used:
 1. Migrate database
 
    ```bash
-   docker exec -it $(docker ps -f name=backend..$ -q) rails db:migrate
+   docker exec -it $(docker ps -f name=ipa-toolkit-backend -q) rails db:migrate
    ```
 
 ### Maintain application system
@@ -181,7 +181,7 @@ The following sources were used:
 - Create a database backup
 
   ```bash
-  docker exec -it $(docker ps -f name=backend-postgres..$ -q) pg_dumpall -c -U postgres > toolkit_dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+  docker exec -it $(docker ps -f name=ipa-toolkit-backend -q) pg_dumpall -c -U postgres > toolkit_dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
   ```
 
 - Archive storage
