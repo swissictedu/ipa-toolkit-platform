@@ -100,7 +100,7 @@ The following sources were used:
 1. Clone this repository
 
    ```bash
-   cd /srv && git clone https://github.com/ictorg/ipa-toolkit-platform
+   cd /srv && git clone https://github.com/swissictedu/ipa-toolkit-platform
    ```
 
 1. Copy the `docker-compose.yml`.
