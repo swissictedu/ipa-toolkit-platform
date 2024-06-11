@@ -27,7 +27,7 @@ services:
       - "traefik.http.services.dashboard.loadbalancer.server.port=80"
 
   ipa-toolkit-backend:
-    image: ghcr.io/ictorg/ipa-toolkit-backend:latest
+    image: ghcr.io/swissictedu/ipa-toolkit-backend:latest
     volumes:
       - storage:/app/storage
     depends_on:
@@ -63,7 +63,7 @@ services:
       POSTGRES_PASSWORD: "secret"
 
   ipa-toolkit-frontend:
-    image: ghcr.io/ictorg/ipa-toolkit-frontend:latest
+    image: ghcr.io/swissictedu/ipa-toolkit-frontend:latest
     environment:
       API: api.toolkit.example.com
     labels: 
