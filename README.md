@@ -44,32 +44,7 @@ These steps describe how to set up the system environment on Ubuntu 22.04 LTS:
 1. Install Docker
 
    ```bash
-   apt update && apt install docker-ce docker-ce-cli containerd.io
-   ```
-
-1. Create directory for Docker cli plugins
-
-   ```bash
-   mkdir -p /usr/local/lib/docker/cli-plugins
-   ```
-
-1. Download `docker-compose` executable
-   - On x86_64
-
-     ```bash
-     curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-x86_64 -o /usr/local/lib/docker/cli-plugins/docker-compose
-     ```
-
-   - On ARM
-
-     ```bash
-     curl -SL https://github.com/docker/compose/releases/download/v2.4.1/docker-compose-linux-aarch64 -o /usr/local/lib/docker/cli-plugins/docker-compose
-     ```
-
-1. Give executable permission to Docker Compose
-
-   ```bash
-   chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+   apt update && apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
    ```
 
 1. Validate the installation of Docker (>= `20.10.17`)
