@@ -101,7 +101,7 @@ The following sources were used:
      - `SYSTEM_EMAIL_ADDRESS`: E-mail account address (username)
      - `SYSTEM_EMAIL_PASSWORD`: E-mail account password
    - **ipa-toolkit-frontend**
-     - `API`: Escape uri so it works with sed (e.g. `"https:\\/\\/api.example.com\\/graphql"`)
+     - `API`: Escape uri so it works with sed (e.g. `"https:\/\/api.example.com\/graphql"`)
 1. Run application system
 
    ```bash

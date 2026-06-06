@@ -1,8 +1,6 @@
-version: '3'
-
 services:
   ipa-toolkit-proxy:
-    image: traefik:2.7
+    image: traefik:3.6.7
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./traefik.yml:/traefik.yml
@@ -12,7 +10,7 @@ services:
       - "443:443"
     labels:
       - "traefik.enable=true"
-      - "traefik.constraint-label=proxy"
+      - "traefik.tags=proxy"
       - "traefik.http.middlewares.auth.basicauth.users=harold.finch:$$2y$$05$$eSfwvKJnawY0Ac2Rdsm2A.iQwvEEL0VcOp.y0aOh0BqTmGacAgmm2"
       - "traefik.http.middlewares.dashboard-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.middlewares.dashboard-https-redirect.redirectscheme.permanent=true"
@@ -23,7 +21,7 @@ services:
       - "traefik.http.routers.dashboard-https.middlewares=auth"
       - "traefik.http.routers.dashboard-http.rule=Host(`proxy.toolkit.example.com`)"
       - "traefik.http.routers.dashboard-http.entrypoints=http"
-      - "traefik.http.routers.dashboard-http.middlewares=https_redirect"
+      - "traefik.http.routers.dashboard-http.middlewares=dashboard-https-redirect"
       - "traefik.http.services.dashboard.loadbalancer.server.port=80"
 
   ipa-toolkit-backend:
@@ -43,7 +41,7 @@ services:
       SYSTEM_EMAIL_DOMAIN: "!REPLACE_ME!"
       SYSTEM_EMAIL_ADDRESS: "!REPLACE_ME!"
       SYSTEM_EMAIL_PASSWORD: "!REPLACE_ME!"
-    labels: 
+    labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.backend-redirect-https.redirectscheme.scheme=https"
       - "traefik.http.routers.backend-http.middlewares=backend-redirect-https"
@@ -65,8 +63,8 @@ services:
   ipa-toolkit-frontend:
     image: ghcr.io/swissictedu/ipa-toolkit-frontend:latest
     environment:
-      API: api.toolkit.example.com
-    labels: 
+      API: https:\/\/api.toolkit.example.com\/graphql
+    labels:
       - "traefik.enable=true"
       - "traefik.http.middlewares.frontend-redirect-https.redirectscheme.scheme=https"
       - "traefik.http.routers.frontend-http.middlewares=frontend-redirect-https"
